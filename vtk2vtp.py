@@ -6,18 +6,26 @@ import os, sys
 import vtk
 
 def vtk2vtp(invtkfile, outvtpfile, binary=False):
-    """What it says on the label"""
+    # Set vtk reader
     reader = vtk.vtkUnstructuredGridReader()
     reader.SetFileName(invtkfile)
 
+    # Set model
     model = vtk.vtkGeometryFilter()
     model.SetInputConnection(reader.GetOutputPort())
     model.Update()
 
+    # # Get surface triangles
+    # triangle = vtk.vtkTriangleFilter()
+    # triangle.SetInputConnection(model.GetOutputPort())
+    # triangle.Update()
+
+    # Export data
     writer = vtk.vtkXMLPolyDataWriter()
     writer.SetFileName(outvtpfile)
     if binary:
         writer.SetFileTypeToBinary()
+    # writer.SetInputConnection(triangle.GetOutputPort())
     writer.SetInputConnection(model.GetOutputPort())
     writer.Update()
 
