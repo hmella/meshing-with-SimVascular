@@ -53,7 +53,7 @@ cells = [
   ("triangle", facets)]
 
 # Export the mesh in given formats
-formats = ['mesh','vtk']
+formats = ['mesh','vtk','xdmf']
 for f in formats:
 
   # Generate meshio mesh
